@@ -34,7 +34,7 @@
                 ];
               runScript = "gleam run -m lustre/dev";
             })
-
+            tailwindcss_4
           ];
         };
       }
