@@ -38,6 +38,7 @@ pub type Msg {
   OnRouteChange(route.Route)
   OnSidebarToggle
   OnClickOutsideSidebar
+  OnClickSidebarLink
 }
 
 fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
@@ -47,16 +48,18 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       Model(..model, sidebar_expanded: !model.sidebar_expanded),
       effect.none(),
     )
-    OnClickOutsideSidebar -> #(
-      Model(..model, sidebar_expanded: False),
-      effect.none(),
-    )
+    OnClickOutsideSidebar -> collapse_sidebar(model)
+    OnClickSidebarLink -> collapse_sidebar(model)
   }
+}
+
+fn collapse_sidebar(model: Model) -> #(Model, Effect(Msg)) {
+  #(Model(..model, sidebar_expanded: False), effect.none())
 }
 
 fn view(model: Model) -> Element(Msg) {
   html.div([attribute.class("h-screen flex flex-row")], [
-    sidebar.view(model.sidebar_expanded),
+    sidebar.view(model.sidebar_expanded, OnClickSidebarLink),
     html.div([attribute.class("flex-1 flex flex-col")], [
       html.header([attribute.class("h-18")], [
         html.button(
