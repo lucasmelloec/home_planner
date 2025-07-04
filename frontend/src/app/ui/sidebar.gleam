@@ -9,10 +9,7 @@ import lustre/element.{type Element}
 import lustre/element/html
 import lustre/event
 
-pub fn view(
-  sidebar_expanded: Bool,
-  on_click_dashboard_link: msg,
-) -> Element(msg) {
+pub fn view(sidebar_expanded: Bool, msg) -> Element(msg) {
   html.aside(
     [
       attribute.data(
@@ -35,7 +32,7 @@ pub fn view(
             [
               attribute.class("font-semibold text-lg text-color-text-secondary"),
               attribute.href("/"),
-              event.on_click(on_click_dashboard_link),
+              event.on_click(msg),
             ],
             [html.text("Home Planner")],
           ),
@@ -53,7 +50,7 @@ pub fn view(
                       "flex items-center p-2 rounded-lg active:bg-error hover:bg-error",
                     ),
                     attribute.href(route |> to_uri()),
-                    event.on_click(on_click_dashboard_link),
+                    event.on_click(msg),
                   ],
                   [
                     html.span([attribute.class("ms-3")], [

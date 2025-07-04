@@ -1,4 +1,5 @@
 import app/route
+import app/route/products
 import app/ui/sidebar
 import gleam/uri.{type Uri}
 import lustre
@@ -48,8 +49,9 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       Model(..model, sidebar_expanded: !model.sidebar_expanded),
       effect.none(),
     )
-    OnClickOutsideSidebar -> collapse_sidebar(model)
-    OnClickSidebarLink -> collapse_sidebar(model)
+    // OnClickOutsideSidebar -> collapse_sidebar(model)
+    // OnClickSidebarLink -> collapse_sidebar(model)
+    OnClickOutsideSidebar | OnClickSidebarLink -> collapse_sidebar(model)
   }
 }
 
@@ -61,12 +63,12 @@ fn view(model: Model) -> Element(Msg) {
   html.div([attribute.class("h-screen flex flex-row")], [
     sidebar.view(model.sidebar_expanded, OnClickSidebarLink),
     html.div([attribute.class("flex-1 flex flex-col")], [
-      html.header([attribute.class("h-18")], [
+      html.header([attribute.class("min-h-18")], [
         html.button(
           [
             event.on_click(OnSidebarToggle),
             attribute.class(
-              "fixed left-0 top-0 bg-surface rounded-full p-1 m-4 sm:hidden shadow-sm",
+              "fixed left-0 top-0 rounded-full p-1 m-4 sm:hidden shadow-sm bg-surface",
             ),
           ],
           [
@@ -102,8 +104,16 @@ fn view(model: Model) -> Element(Msg) {
         ),
       ]),
       html.main(
-        [attribute.class("flex-1 flex"), event.on_click(OnClickOutsideSidebar)],
-        [],
+        [
+          attribute.class("flex-1 flex justify-center"),
+          event.on_click(OnClickOutsideSidebar),
+        ],
+        [
+          case model.route {
+            route.Products -> products.view()
+            _ -> element.none()
+          },
+        ],
       ),
     ]),
   ])
