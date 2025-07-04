@@ -1,4 +1,5 @@
 import app/route
+import app/route/products
 import app/ui/icon
 import app/ui/sidebar
 import gleam/uri.{type Uri}
@@ -133,7 +134,12 @@ fn view(model: Model) -> Element(Msg) {
           ]),
         ],
       ),
-      html.main([attribute.class("[grid-area:main]")], []),
+      html.main([attribute.class("[grid-area:main] flex justify-center")], [
+        case model.route {
+          route.Products -> products.view()
+          _ -> element.none()
+        },
+      ]),
     ],
   )
 }

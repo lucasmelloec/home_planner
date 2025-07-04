@@ -24,3 +24,26 @@
     color: var(--color-color-text-secondary);
   }
 }
+
+@layer components {
+  .btn {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-md);
+    border-width: 1px;
+    padding: calc(var(--spacing) * 1);
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-primary);
+      }
+    }
+    &:active {
+      background-color: var(--color-primary);
+    }
+  }
+  .text-box {
+    background-color: color-mix(in oklab, var(--color-surface) 30%, transparent);
+    border-radius: var(--radius-md);
+    border-width: 1px;
+    padding: calc(var(--spacing) * 1);
+  }
+}
