@@ -15,12 +15,13 @@ pub fn view(
 ) -> Element(msg) {
   html.aside(
     [
+      attribute.id("main-sidebar"),
       attribute.data(
         "expanded",
         string.lowercase(bool.to_string(sidebar_expanded)),
       ),
       attribute.class(
-        "fixed h-full flex flex-col sm:relative w-72 data-[expanded=true]:translate-x-0 sm:translate-none -translate-x-full transition-transform duration-200 ease-in-out shadow-lg sm:shadow-none bg-primary",
+        "fixed h-full flex flex-col md:relative w-72 data-[expanded=true]:translate-x-0 md:translate-none -translate-x-full transition-transform duration-200 ease-in-out shadow-lg md:shadow-none bg-primary",
       ),
     ],
     [
