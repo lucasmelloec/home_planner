@@ -16,6 +16,10 @@
     color: var(--color-color-text);
   }
 
+  header {
+    background-color: var(--color-background);
+  }
+
   h1 {
     color: var(--color-color-text-secondary);
   }
