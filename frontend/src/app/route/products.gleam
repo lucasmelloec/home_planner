@@ -1,7 +1,6 @@
 import app/data/product
 import app/ui/card
 import app/ui/icon
-import gleam/list
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
@@ -30,17 +29,6 @@ pub fn view() -> Element(_) {
         ]),
       ],
     ),
-    case list.is_empty(product.product_list()) {
-      True ->
-        html.p([attribute.class("text-center flex-1 content-center")], [
-          html.text("No Products Found"),
-        ])
-      False ->
-        html.ul(
-          [attribute.class("grid grid-cols-1 md:grid-cols-2 mx-[2px]")],
-          product.product_list()
-            |> list.map(fn(product) { card.view(product) }),
-        )
-    },
+    card.view_list([attribute.class("md:grid-cols-2")], product.product_list()),
   ])
 }
