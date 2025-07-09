@@ -1,4 +1,5 @@
 import app/route
+import app/route/details
 import app/route/products
 import app/route/recipes
 import app/ui/icon
@@ -139,6 +140,7 @@ fn view(model: Model) -> Element(Msg) {
         case model.route {
           route.Products -> products.view()
           route.Recipes -> recipes.view()
+          route.Details -> details.view()
           _ -> element.none()
         },
       ]),

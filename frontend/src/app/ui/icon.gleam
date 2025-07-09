@@ -40,3 +40,41 @@ pub fn search() {
     ],
   )
 }
+
+pub fn plus() {
+  html.svg(
+    [
+      attribute.attribute("fill", "none"),
+      attribute.attribute("viewBox", "0 0 24 24"),
+      attribute.attribute("stroke-width", "1.5"),
+      attribute.attribute("stroke", "currentColor"),
+      attribute.class("size-6 text-color"),
+    ],
+    [
+      svg.path([
+        attribute.attribute("stroke-linecap", "round"),
+        attribute.attribute("stroke-linejoin", "round"),
+        attribute.attribute("d", "M12 4.5v15m7.5-7.5h-15"),
+      ]),
+    ],
+  )
+}
+
+pub fn minus() {
+  html.svg(
+    [
+      attribute.attribute("fill", "none"),
+      attribute.attribute("viewBox", "0 0 24 24"),
+      attribute.attribute("stroke-width", "1.5"),
+      attribute.attribute("stroke", "currentColor"),
+      attribute.class("size-6 text-color"),
+    ],
+    [
+      svg.path([
+        attribute.attribute("stroke-linecap", "round"),
+        attribute.attribute("stroke-linejoin", "round"),
+        attribute.attribute("d", "M5 12h14"),
+      ]),
+    ],
+  )
+}
