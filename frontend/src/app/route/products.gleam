@@ -10,7 +10,7 @@ pub fn view() -> Element(_) {
     html.div(
       [
         attribute.class(
-          "items-center h-20 sticky top-[61px] md:mx-4 flex flex-row bg-background space-x-2 md:space-x-8",
+          "items-center h-20 sticky top-[61px] flex flex-row bg-background space-x-2 md:space-x-8",
         ),
       ],
       [
@@ -29,6 +29,9 @@ pub fn view() -> Element(_) {
         ]),
       ],
     ),
-    card.view_list([attribute.class("md:grid-cols-2")], product.product_list()),
+    card.view_card_list(
+      [attribute.class("md:grid-cols-2")],
+      product.product_list(),
+    ),
   ])
 }
