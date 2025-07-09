@@ -1,3 +1,4 @@
+import app/i18n
 import gleam/list
 import lustre/attribute
 import lustre/element.{type Element}
@@ -21,11 +22,12 @@ pub fn view_card(
 pub fn view_card_list(
   attributes: List(vattr.Attribute(_)),
   card_list: List(String),
+  i18n: fn(i18n.I18nKey) -> String,
 ) -> Element(_) {
   case list.is_empty(card_list) {
     True ->
       html.p([attribute.class("text-center flex-1 content-center")], [
-        html.text("No Items Found"),
+        html.text(i18n(i18n.NoItemsFound)),
       ])
     False ->
       html.ul(

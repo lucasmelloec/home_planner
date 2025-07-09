@@ -1,3 +1,4 @@
+import app/i18n
 import app/route.{
   type Route, Details, MealPlanner, Products, Recipes, ShoppingList, to_title,
   to_uri,
@@ -8,12 +9,15 @@ import gleam/string
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
+import lustre/event
 
 pub fn view(
   sidebar_expanded: Bool,
   current_route: Route,
   above_size_breakpoint: Bool,
-) -> Element(_) {
+  i18n: fn(i18n.I18nKey) -> String,
+  on_click_language_flag: fn(i18n.Lang) -> msg,
+) -> Element(msg) {
   html.nav(
     [
       attribute.id("sidebar"),
@@ -36,7 +40,7 @@ pub fn view(
             attribute.class("font-semibold text-lg text-color-text-secondary"),
             attribute.href("/"),
           ],
-          [html.text("Home Planner")],
+          [html.text(i18n(i18n.AppName))],
         ),
       ]),
       html.div([attribute.class("px-3 py-4")], [
@@ -58,12 +62,31 @@ pub fn view(
                   ],
                   [
                     html.span([attribute.class("ms-3")], [
-                      html.text(route |> to_title()),
+                      html.text(route |> to_title(i18n)),
                     ]),
                   ],
                 ),
               ])
             }),
+        ),
+        html.div(
+          [attribute.class("absolute bottom-0 left-30 space-x-2 text-lg")],
+          [
+            html.a(
+              [
+                attribute.href("#"),
+                event.on_click(on_click_language_flag(i18n.Pt)),
+              ],
+              [html.text("🇧🇷")],
+            ),
+            html.a(
+              [
+                attribute.href("#"),
+                event.on_click(on_click_language_flag(i18n.En)),
+              ],
+              [html.text("🇺🇸")],
+            ),
+          ],
         ),
       ]),
     ],

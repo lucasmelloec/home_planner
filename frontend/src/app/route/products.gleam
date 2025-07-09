@@ -1,11 +1,12 @@
 import app/data/product
+import app/i18n
 import app/ui/card
 import app/ui/icon
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
 
-pub fn view() -> Element(_) {
+pub fn view(i18n: fn(i18n.I18nKey) -> String) -> Element(_) {
   html.div([attribute.class("flex-1 flex flex-col max-w-500 mx-6")], [
     html.div(
       [
@@ -18,20 +19,21 @@ pub fn view() -> Element(_) {
           html.input([
             attribute.class("text-box w-full pr-9"),
             attribute.type_("text"),
-            attribute.placeholder("Search Product"),
+            attribute.placeholder(i18n(i18n.SearchProduct)),
           ]),
           html.label([attribute.class("absolute right-2 top-1/8 text-error")], [
             icon.search(),
           ]),
         ]),
         html.button([attribute.class("btn text-nowrap")], [
-          html.text("New Product"),
+          html.text(i18n(i18n.NewProduct)),
         ]),
       ],
     ),
     card.view_card_list(
       [attribute.class("md:grid-cols-2")],
       product.product_list(),
+      i18n,
     ),
   ])
 }

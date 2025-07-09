@@ -1,18 +1,18 @@
 import app/data/measurement
 import app/data/tag
+import app/i18n
 import app/ui/list as list_ui
 import gleam/list
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
 
-pub fn view() -> Element(_) {
+pub fn view(i18n: fn(i18n.I18nKey) -> String) -> Element(_) {
   let tags = tag.tag_list()
   let measurements = measurement.measurement_list()
-
   html.div([attribute.class("flex-1 flex flex-col max-w-500 mx-6")], [
     html.button([attribute.class("btn fixed top-3 right-6 min-w-20")], [
-      html.text("Save"),
+      html.text(i18n(i18n.Save)),
     ]),
     html.div([attribute.class("grid grid-cols-1 md:grid-cols-2 mt-3 gap-x-8")], [
       html.div([], [
@@ -22,7 +22,7 @@ pub fn view() -> Element(_) {
               "text-center text-color-text-secondary font-semibold text-md my-3",
             ),
           ],
-          [html.text("Tags")],
+          [html.text(i18n(i18n.TagsHeader))],
         ),
         list_ui.view_list(
           [],
@@ -40,7 +40,7 @@ pub fn view() -> Element(_) {
               "text-center text-color-text-secondary font-semibold text-md my-3",
             ),
           ],
-          [html.text("Measurements")],
+          [html.text(i18n(i18n.MeasurementsHeader))],
         ),
         list_ui.view_list(
           [],

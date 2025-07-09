@@ -1,3 +1,6 @@
+import app/i18n
+import app/i18n/en
+import app/i18n/pt
 import app/route
 import app/route/details
 import app/route/products
@@ -19,7 +22,12 @@ pub fn main() {
 }
 
 type Model {
-  Model(route: route.Route, sidebar_expanded: Bool, above_size_breakpoint: Bool)
+  Model(
+    route: route.Route,
+    sidebar_expanded: Bool,
+    above_size_breakpoint: Bool,
+    i18n: fn(i18n.I18nKey) -> String,
+  )
 }
 
 fn init(_) -> #(Model, Effect(Msg)) {
@@ -32,7 +40,8 @@ fn init(_) -> #(Model, Effect(Msg)) {
     Model(
       route:,
       sidebar_expanded: False,
-      above_size_breakpoint: is_above_size_breakpoint(),
+      above_size_breakpoint: False,
+      i18n: en.i18n,
     )
 
   #(
@@ -45,11 +54,6 @@ fn listen_to_media_size_changes() -> Effect(Msg) {
   use dispatch <- effect.from()
   use above_breakpoint <- do_listen_to_media_size_changes
   UserResizedAboveBreakpoint(above_breakpoint) |> dispatch
-}
-
-@external(javascript, "./app.ffi.mjs", "is_above_size_breakpoint")
-fn is_above_size_breakpoint() -> Bool {
-  False
 }
 
 @external(javascript, "./app.ffi.mjs", "do_listen_to_media_size_changes")
@@ -66,6 +70,7 @@ pub type Msg {
   UserClickedSidebarButton
   UserClickedOutsideSidebar
   UserResizedAboveBreakpoint(Bool)
+  UserChangedLanguage(i18n.Lang)
 }
 
 fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
@@ -86,6 +91,13 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       Model(..model, above_size_breakpoint:),
       effect.none(),
     )
+    UserChangedLanguage(lang) -> {
+      let i18n = case lang {
+        i18n.En -> en.i18n
+        i18n.Pt -> pt.i18n
+      }
+      #(Model(..model, i18n:), effect.none())
+    }
   }
 }
 
@@ -101,6 +113,8 @@ fn view(model: Model) -> Element(Msg) {
         model.sidebar_expanded,
         model.route,
         model.above_size_breakpoint,
+        model.i18n,
+        UserChangedLanguage,
       ),
       html.button(
         [
@@ -132,15 +146,15 @@ fn view(model: Model) -> Element(Msg) {
         ],
         [
           html.h1([attribute.class("font-semibold text-lg text-center")], [
-            html.text(model.route |> route.to_title()),
+            html.text(model.route |> route.to_title(model.i18n)),
           ]),
         ],
       ),
       html.main([attribute.class("[grid-area:main] flex justify-center")], [
         case model.route {
-          route.Products -> products.view()
-          route.Recipes -> recipes.view()
-          route.Details -> details.view()
+          route.Products -> products.view(model.i18n)
+          route.Recipes -> recipes.view(model.i18n)
+          route.Details -> details.view(model.i18n)
           _ -> element.none()
         },
       ]),

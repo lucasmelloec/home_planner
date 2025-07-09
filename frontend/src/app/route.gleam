@@ -1,3 +1,4 @@
+import app/i18n
 import gleam/option.{type Option, None, Some}
 import gleam/uri.{type Uri}
 
@@ -19,17 +20,17 @@ pub type Route {
 
 pub const homepage: Route = ShoppingList
 
-pub fn to_title(route: Route) -> String {
+pub fn to_title(route: Route, i18n: fn(i18n.I18nKey) -> String) -> String {
   case route {
-    Details -> "Details"
+    Details -> i18n(i18n.DetailsRoute)
     EditProduct(_) -> "Edit Product"
     EditRecipe(_) -> "Edit Recipe"
-    MealPlanner -> "Meal Planner"
+    MealPlanner -> i18n(i18n.MealPlannerRoute)
     NotFound -> "Not Found"
-    Products -> "Products"
+    Products -> i18n(i18n.ProductsRoute)
     Recipe(_) -> "Recipe"
-    Recipes -> "Recipes"
-    ShoppingList -> "Shopping List"
+    Recipes -> i18n(i18n.RecipesRoute)
+    ShoppingList -> i18n(i18n.ShoppingListRoute)
   }
 }
 
