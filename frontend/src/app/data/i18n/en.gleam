@@ -21,5 +21,10 @@ pub fn i18n(key: i18n.I18nKey) -> String {
     i18n.RecurrencesHeader -> "Buying Recurrence"
     i18n.RecurrenceMessage -> "Every"
     i18n.RecurrenceFrequency -> "Days"
+    i18n.Meals -> "Meals"
+    i18n.IngredientsHeader -> "Ingredients"
+    i18n.Of -> "Of"
+    i18n.PreparationHeader -> "How to Prepare"
+    i18n.ImportantInformationHeader -> "Important Information"
   }
 }

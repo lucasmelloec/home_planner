@@ -64,7 +64,12 @@ pub fn to_uri(route: Route) -> String {
         Some(product_uuid) ->
           "/products/" <> uuid.to_string(product_uuid) <> "/edit"
       }
-    EditRecipe(_) -> ""
+    EditRecipe(recipe) ->
+      case recipe {
+        None -> "/recipes/new"
+        Some(recipe_uuid) ->
+          "/recipes/" <> uuid.to_string(recipe_uuid) <> "/edit"
+      }
     MealPlanner -> "/mealplanner"
     NotFound -> ""
     Products -> "/products"

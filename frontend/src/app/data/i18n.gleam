@@ -18,6 +18,11 @@ pub type I18nKey {
   RecurrencesHeader
   RecurrenceMessage
   RecurrenceFrequency
+  Meals
+  IngredientsHeader
+  Of
+  PreparationHeader
+  ImportantInformationHeader
 }
 
 pub type Lang {

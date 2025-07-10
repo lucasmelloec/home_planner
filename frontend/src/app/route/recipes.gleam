@@ -31,9 +31,10 @@ pub fn view(i18n: fn(i18n.I18nKey) -> String) -> Element(_) {
               [icon.search()],
             ),
           ]),
-          html.button([attribute.class("btn text-nowrap")], [
-            html.text(i18n(i18n.NewRecipe)),
-          ]),
+          html.a(
+            [attribute.href("/recipes/new"), attribute.class("btn text-nowrap")],
+            [html.text(i18n(i18n.NewRecipe))],
+          ),
         ],
       ),
       card.view_card_list([], recipe.recipe_list(), i18n),

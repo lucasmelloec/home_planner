@@ -4,6 +4,7 @@ import app/data/i18n/pt
 import app/route
 import app/route/details
 import app/route/edit_product
+import app/route/edit_recipe
 import app/route/products
 import app/route/recipes
 import app/ui/header
@@ -146,6 +147,7 @@ fn view(model: Model) -> Element(Msg) {
         route.Recipes -> recipes.view(model.i18n)
         route.Details -> details.view(model.i18n)
         route.EditProduct(_) -> edit_product.view(model.i18n)
+        route.EditRecipe(_) -> edit_recipe.view(model.i18n)
         _ -> element.none()
       },
     ],
