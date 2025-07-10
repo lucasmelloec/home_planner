@@ -19,17 +19,20 @@ pub type Route {
 
 pub const homepage: Route = ShoppingList
 
-pub fn to_title(route: Route, i18n: fn(i18n.I18nKey) -> String) -> String {
+pub fn to_title(
+  route: Route,
+  i18n: fn(i18n.I18nKey) -> String,
+) -> Option(String) {
   case route {
-    Details -> i18n(i18n.DetailsRoute)
-    EditProduct(_) -> "Edit Product"
-    EditRecipe(_) -> "Edit Recipe"
-    MealPlanner -> i18n(i18n.MealPlannerRoute)
-    NotFound -> "Not Found"
-    Products -> i18n(i18n.ProductsRoute)
-    Recipe(_) -> "Recipe"
-    Recipes -> i18n(i18n.RecipesRoute)
-    ShoppingList -> i18n(i18n.ShoppingListRoute)
+    Details -> Some(i18n(i18n.DetailsRoute))
+    EditProduct(_) -> None
+    EditRecipe(_) -> None
+    MealPlanner -> Some(i18n(i18n.MealPlannerRoute))
+    NotFound -> Some("Not Found")
+    Products -> Some(i18n(i18n.ProductsRoute))
+    Recipe(_) -> None
+    Recipes -> Some(i18n(i18n.RecipesRoute))
+    ShoppingList -> Some(i18n(i18n.ShoppingListRoute))
   }
 }
 
@@ -55,7 +58,12 @@ pub fn from_uri(uri: Uri) -> Route {
 pub fn to_uri(route: Route) -> String {
   case route {
     Details -> "/details"
-    EditProduct(_) -> ""
+    EditProduct(product) ->
+      case product {
+        None -> "/products/new"
+        Some(product_uuid) ->
+          "/products/" <> uuid.to_string(product_uuid) <> "/edit"
+      }
     EditRecipe(_) -> ""
     MealPlanner -> "/mealplanner"
     NotFound -> ""

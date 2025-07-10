@@ -12,11 +12,11 @@ import lustre/element/html
 pub fn view(i18n: fn(i18n.I18nKey) -> String) -> Element(_) {
   element.fragment([
     header.view(route.Products, i18n, []),
-    main.view([], [
+    main.view([
       html.div(
         [
           attribute.class(
-            "items-center h-20 sticky top-[61px] flex flex-row bg-background space-x-2 md:space-x-8",
+            "items-center h-20 sticky top-15 flex flex-row bg-background space-x-2 md:space-x-8",
           ),
         ],
         [
@@ -31,9 +31,13 @@ pub fn view(i18n: fn(i18n.I18nKey) -> String) -> Element(_) {
               [icon.search()],
             ),
           ]),
-          html.button([attribute.class("btn text-nowrap")], [
-            html.text(i18n(i18n.NewProduct)),
-          ]),
+          html.a(
+            [
+              attribute.href("/products/new"),
+              attribute.class("btn text-nowrap"),
+            ],
+            [html.text(i18n(i18n.NewProduct))],
+          ),
         ],
       ),
       card.view_card_list(

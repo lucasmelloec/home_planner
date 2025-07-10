@@ -13,6 +13,11 @@ pub type I18nKey {
   MeasurementsHeader
   Save
   NoItemsFound
+  QuantityHeader
+  ConversionsHeader
+  RecurrencesHeader
+  RecurrenceMessage
+  RecurrenceFrequency
 }
 
 pub type Lang {

@@ -1,4 +1,3 @@
-import gleam/int
 import gleam/list
 
 pub type Tag {
@@ -6,6 +5,6 @@ pub type Tag {
 }
 
 pub fn tag_list() -> List(Tag) {
-  list.range(1, 4)
-  |> list.map(fn(count) { Tag(name: "Tag " <> int.to_string(count)) })
+  ["Ingrediente", "Higiene", "Limpeza"]
+  |> list.map(fn(tag_name) { Tag(tag_name) })
 }

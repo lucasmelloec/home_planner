@@ -19,7 +19,7 @@ pub fn view(i18n: fn(i18n.I18nKey) -> String) -> Element(_) {
         html.text(i18n(i18n.Save)),
       ]),
     ]),
-    main.view([], [
+    main.view([
       html.div(
         [attribute.class("grid grid-cols-1 md:grid-cols-2 mt-3 gap-x-8")],
         [
@@ -33,15 +33,11 @@ pub fn view(i18n: fn(i18n.I18nKey) -> String) -> Element(_) {
               [html.text(i18n(i18n.TagsHeader))],
             ),
             list_ui.view_list(
-              [],
               tags
-                |> list.map(fn(item) {
-                  let assert Ok(first_item) = list.first(tags)
-                  list_ui.ListItem(
-                    value: item.name,
-                    disabled: item == first_item,
-                  )
-                }),
+              |> list.map(fn(item) {
+                let assert Ok(first_item) = list.first(tags)
+                list_ui.ListItem(value: item.name, disabled: item == first_item)
+              }),
             ),
           ]),
           html.div([], [
@@ -54,15 +50,11 @@ pub fn view(i18n: fn(i18n.I18nKey) -> String) -> Element(_) {
               [html.text(i18n(i18n.MeasurementsHeader))],
             ),
             list_ui.view_list(
-              [],
               measurements
-                |> list.map(fn(item) {
-                  let assert Ok(first_item) = list.first(measurements)
-                  list_ui.ListItem(
-                    value: item.name,
-                    disabled: item == first_item,
-                  )
-                }),
+              |> list.map(fn(item) {
+                let assert Ok(first_item) = list.first(measurements)
+                list_ui.ListItem(value: item.name, disabled: item == first_item)
+              }),
             ),
           ]),
         ],

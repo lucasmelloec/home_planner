@@ -3,11 +3,13 @@ import app/data/i18n/en
 import app/data/i18n/pt
 import app/route
 import app/route/details
+import app/route/edit_product
 import app/route/products
 import app/route/recipes
 import app/ui/header
 import app/ui/icon
 import app/ui/sidebar
+import gleam/option.{None, Some}
 import gleam/uri.{type Uri}
 import lustre
 import lustre/attribute
@@ -124,7 +126,7 @@ fn view(model: Model) -> Element(Msg) {
           attribute.aria_expanded(model.sidebar_expanded),
           attribute.aria_controls("sidebar"),
           attribute.class(
-            "fixed z-10 top-0 rounded-full p-1 mt-[10px] ml-[10px] shadow-sm bg-surface md:hidden",
+            "fixed z-10 top-0 rounded-full p-1 mt-[10px] ml-3 shadow-sm bg-surface md:hidden",
           ),
         ],
         [icon.menu()],
@@ -139,14 +141,13 @@ fn view(model: Model) -> Element(Msg) {
         ],
         [],
       ),
-      html.div([], [
-        case model.route {
-          route.Products -> products.view(model.i18n)
-          route.Recipes -> recipes.view(model.i18n)
-          route.Details -> details.view(model.i18n)
-          _ -> element.none()
-        },
-      ]),
+      case model.route {
+        route.Products -> products.view(model.i18n)
+        route.Recipes -> recipes.view(model.i18n)
+        route.Details -> details.view(model.i18n)
+        route.EditProduct(_) -> edit_product.view(model.i18n)
+        _ -> element.none()
+      },
     ],
   )
 }

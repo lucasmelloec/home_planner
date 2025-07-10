@@ -16,5 +16,10 @@ pub fn i18n(key: i18n.I18nKey) -> String {
     i18n.Save -> "Save"
     i18n.TagsHeader -> "Tags"
     i18n.NoItemsFound -> "No Items Found"
+    i18n.ConversionsHeader -> "Conversions"
+    i18n.QuantityHeader -> "Market Quantity"
+    i18n.RecurrencesHeader -> "Buying Recurrence"
+    i18n.RecurrenceMessage -> "Every"
+    i18n.RecurrenceFrequency -> "Days"
   }
 }

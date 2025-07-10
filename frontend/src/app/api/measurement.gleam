@@ -1,4 +1,3 @@
-import gleam/int
 import gleam/list
 
 pub type Measurement {
@@ -6,8 +5,6 @@ pub type Measurement {
 }
 
 pub fn measurement_list() -> List(Measurement) {
-  list.range(1, 3)
-  |> list.map(fn(count) {
-    Measurement(name: "Measurement " <> int.to_string(count))
-  })
+  ["Xĩcaras", "Colheres de Sopa", "Gramas"]
+  |> list.map(fn(measurement_name) { Measurement(measurement_name) })
 }

@@ -12,11 +12,11 @@ import lustre/element/html
 pub fn view(i18n: fn(i18n.I18nKey) -> String) -> Element(_) {
   element.fragment([
     header.view(route.Recipes, i18n, []),
-    main.view([], [
+    main.view([
       html.div(
         [
           attribute.class(
-            "items-center h-20 sticky top-[61px] flex flex-row bg-background space-x-2 md:space-x-8",
+            "items-center h-20 sticky top-15 flex flex-row bg-background space-x-2 md:space-x-8",
           ),
         ],
         [

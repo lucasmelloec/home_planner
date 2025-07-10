@@ -5,6 +5,7 @@ import app/route.{
 }
 import gleam/bool
 import gleam/list
+import gleam/option.{None, Some}
 import gleam/string
 import lustre/attribute
 import lustre/element.{type Element}
@@ -34,7 +35,7 @@ pub fn view(
       },
     ],
     [
-      html.div([attribute.class("p-4 border-b border-error text-center")], [
+      html.div([attribute.class("p-4 border-b border-error text-center h-15")], [
         html.a(
           [
             attribute.class("font-semibold text-lg text-color-text-secondary"),
@@ -62,7 +63,10 @@ pub fn view(
                   ],
                   [
                     html.span([attribute.class("ms-3")], [
-                      html.text(route |> to_title(i18n)),
+                      case route |> to_title(i18n) {
+                        None -> element.none()
+                        Some(title) -> html.text(title)
+                      },
                     ]),
                   ],
                 ),
