@@ -1,19 +1,18 @@
-import app/i18n
+import app/api/product
+import app/api/recipe
+import app/api/uuid.{type Uuid}
+import app/data/i18n
 import gleam/option.{type Option, None, Some}
 import gleam/uri.{type Uri}
-
-pub type Uuid {
-  Uuid(String)
-}
 
 pub type Route {
   ShoppingList
   MealPlanner
   Recipes
-  Recipe(Uuid)
-  EditRecipe(Option(Uuid))
+  Recipe(Uuid(recipe.Recipe))
+  EditRecipe(Option(Uuid(recipe.Recipe)))
   Products
-  EditProduct(Option(Uuid))
+  EditProduct(Option(Uuid(product.Product)))
   Details
   NotFound
 }
@@ -40,12 +39,14 @@ pub fn from_uri(uri: Uri) -> Route {
     ["details"] -> Details
     ["mealplanner"] -> MealPlanner
     ["products"] -> Products
-    ["products", product_uuid, "edit"] -> EditProduct(Some(Uuid(product_uuid)))
+    ["products", product_uuid, "edit"] ->
+      EditProduct(Some(uuid.from_string(product_uuid)))
     ["products", "new"] -> EditProduct(None)
     ["recipes"] -> Recipes
     ["recipes", "new"] -> EditRecipe(None)
-    ["recipes", recipe_uuid] -> Recipe(Uuid(recipe_uuid))
-    ["recipes", recipe_uuid, "edit"] -> EditRecipe(Some(Uuid(recipe_uuid)))
+    ["recipes", recipe_uuid] -> Recipe(uuid.from_string(recipe_uuid))
+    ["recipes", recipe_uuid, "edit"] ->
+      EditRecipe(Some(uuid.from_string(recipe_uuid)))
     ["shoppinglist"] -> ShoppingList
     _ -> NotFound
   }

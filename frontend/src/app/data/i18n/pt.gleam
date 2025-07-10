@@ -1,4 +1,4 @@
-import app/i18n
+import app/data/i18n
 
 pub fn i18n(key: i18n.I18nKey) -> String {
   case key {

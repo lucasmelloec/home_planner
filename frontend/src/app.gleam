@@ -1,6 +1,6 @@
-import app/i18n
-import app/i18n/en
-import app/i18n/pt
+import app/data/i18n
+import app/data/i18n/en
+import app/data/i18n/pt
 import app/route
 import app/route/details
 import app/route/products

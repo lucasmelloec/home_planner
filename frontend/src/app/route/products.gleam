@@ -1,5 +1,5 @@
-import app/data/product
-import app/i18n
+import app/api/product
+import app/data/i18n
 import app/ui/card
 import app/ui/icon
 import lustre/attribute

@@ -1,4 +1,4 @@
-import app/i18n
+import app/data/i18n
 import app/route.{
   type Route, Details, MealPlanner, Products, Recipes, ShoppingList, to_title,
   to_uri,

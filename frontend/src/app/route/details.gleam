@@ -1,6 +1,6 @@
-import app/data/measurement
-import app/data/tag
-import app/i18n
+import app/api/measurement
+import app/api/tag
+import app/data/i18n
 import app/ui/list as list_ui
 import gleam/list
 import lustre/attribute

@@ -1,4 +1,4 @@
-import app/i18n
+import app/data/i18n
 import gleam/list
 import lustre/attribute
 import lustre/element.{type Element}
