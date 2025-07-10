@@ -5,6 +5,7 @@ import app/route
 import app/route/details
 import app/route/products
 import app/route/recipes
+import app/ui/header
 import app/ui/icon
 import app/ui/sidebar
 import gleam/uri.{type Uri}
@@ -131,26 +132,14 @@ fn view(model: Model) -> Element(Msg) {
       html.div(
         [
           attribute.class(
-            "bg-black/20 fixed inset-0 z-9 hidden peer-data-[expanded=true]:block",
+            "bg-black/20 fixed z-9 hidden peer-data-[expanded=true]:block",
           ),
           event.on_click(UserClickedOutsideSidebar),
           attribute.aria_hidden(True),
         ],
         [],
       ),
-      html.header(
-        [
-          attribute.class(
-            "p-4 sticky top-0 [grid-area:header] border-b border-b-gray-400/30",
-          ),
-        ],
-        [
-          html.h1([attribute.class("font-semibold text-lg text-center")], [
-            html.text(model.route |> route.to_title(model.i18n)),
-          ]),
-        ],
-      ),
-      html.main([attribute.class("[grid-area:main] flex justify-center")], [
+      html.div([], [
         case model.route {
           route.Products -> products.view(model.i18n)
           route.Recipes -> recipes.view(model.i18n)
